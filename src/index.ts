@@ -8,6 +8,12 @@ import { join } from 'path'
 const FUNCTIONS_DIRECTORY = join(__dirname, 'functions')
 
 /**
+ * Native canvas parent function name.
+ * @private
+ */
+const NATIVE_CANVAS_PARENT_FUNCTION_NAME = '$createCanvas'
+
+/**
  * kiss, kiss. <3
  */
 export class EATSLazyCanvas extends Addon {
@@ -19,9 +25,9 @@ export class EATSLazyCanvas extends Addon {
         const currentSize = api.functions.size
 
         // Removing native canvas functions first.
-        api.functions.delete('$createcanvas')
+        api.functions.delete(NATIVE_CANVAS_PARENT_FUNCTION_NAME.toLowerCase())
         api.functions.forEach((func, name) => {
-            if (func.parent && func.parent.name === '$createCanvas') {
+            if (func.parent !== undefined && func.parent.name === NATIVE_CANVAS_PARENT_FUNCTION_NAME) {
                 api.functions.delete(name)
             }
         })

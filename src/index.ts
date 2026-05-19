@@ -1,5 +1,7 @@
-import { Addon, type API } from 'easy-api.ts'
+import { Addon, APIFunction, type API } from 'easy-api.ts'
 import { join } from 'path'
+import { inspect } from 'util'
+import { Logger, LogPriority } from './classes/Logger'
 
 /**
  * Directory where the functions are located.
@@ -11,34 +13,35 @@ const FUNCTIONS_DIRECTORY = join(__dirname, 'functions')
  * Native canvas parent function name.
  * @private
  */
-const NATIVE_CANVAS_PARENT_FUNCTION_NAME = '$createCanvas'
+const NATIVE_CANVAS_PARENT_FUNCTION = '$createCanvas'
+
+/**
+ * Package name.
+ * @private
+ */
+export const packageName = '@eats/lazy-canvas'
+
+/**
+ * Logger instance.
+ * @private
+ */
+const logger = new Logger({
+    level: LogPriority.DEBUG,
+    prefix: '@eats/lazy-canvas'
+})
 
 /**
  * kiss, kiss. <3
  */
 export class EATSLazyCanvas extends Addon {
-    override name = '@eats/lazy-canvas'
+    override name = packageName
     override description = 'lazy-canvas implementation for easy-api.ts.'
     override version = '1.0.0'
+    constructor(private readonly debug = false) {
+        super()
+    }
     override init(api: API): void {
-        // Storing the current size.
-        const currentSize = api.functions.size
-
-        // Removing native canvas functions first.
-        api.functions.delete(NATIVE_CANVAS_PARENT_FUNCTION_NAME.toLowerCase())
-        api.functions.forEach((func, name) => {
-            if (func.parent !== undefined && func.parent.name === NATIVE_CANVAS_PARENT_FUNCTION_NAME) {
-                api.functions.delete(name)
-            }
-        })
-
-        // Checking if the size has changed.
-        if (api.functions.size === currentSize) {
-            console.error('No canvas functions found.')
-            return
-        }
-
-        // Proceeding to load the new canvas functions.
+        api.functions.delete(NATIVE_CANVAS_PARENT_FUNCTION.toLowerCase())
         api.functions.load(FUNCTIONS_DIRECTORY)
     }
 }

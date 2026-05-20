@@ -1,24 +1,8 @@
 import checkLazyCanvas from '../utils/checkLazyCanvas'
 import type { CompiledFunction } from 'easy-api.ts/lib/classes/internal/CompiledFunction'
 import { APIFunction, Data, EATS_Error, ParamType } from 'easy-api.ts'
-import { packageName } from '../index'
+import { ALLOWED_FONT_WEIGHTS, PACKAGE_NAME } from '../index'
 import { Font, type LazyCanvas, type StringFontWeight } from '@hitomihiumi/lazy-canvas'
-
-/**
- * Allowed font weights.
- * @private
- */
-const ALLOWED_FONT_WEIGHTS: StringFontWeight[] = [
-    'normal',
-    'bold',
-    'italic',
-    'bold italic',
-    'regular',
-    'semi-bold',
-    'extra-bold',
-    'light',
-    'extra-light'
-] as const
 
 export default class AddFont extends APIFunction {
     override name = '$addFont'
@@ -57,7 +41,7 @@ export default class AddFont extends APIFunction {
         const [fontFamily, fontPath, fontWeight = 'regular'] = values
         checkLazyCanvas(d)
 
-        const canvas = d.getInternalVar<LazyCanvas>(packageName)
+        const canvas = d.getInternalVar<LazyCanvas>(PACKAGE_NAME)
         const font = new Font()
             .setFamily(fontFamily!)
             .setPath(fontPath!)

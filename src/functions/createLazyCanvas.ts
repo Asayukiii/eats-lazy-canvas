@@ -1,7 +1,7 @@
 import type { CompiledFunction } from 'easy-api.ts/lib/classes/internal/CompiledFunction'
 import { APIFunction, Data, EATS_Error, ParamType } from 'easy-api.ts'
 import { LazyCanvas } from '@hitomihiumi/lazy-canvas'
-import { packageName } from '..'
+import { PACKAGE_NAME } from '..'
 
 export default class CreateLazyCanvas extends APIFunction {
     override name = '$createLazyCanvas'
@@ -36,6 +36,6 @@ export default class CreateLazyCanvas extends APIFunction {
         const canvas = new LazyCanvas()
             .createNewCanvas(newCanvasWidth!, newCanvasHeight!)
 
-        d.setInternalVar(packageName, canvas)
+        d.setInternalVar(PACKAGE_NAME, canvas)
     }
 }

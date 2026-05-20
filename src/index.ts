@@ -2,34 +2,59 @@ import { Addon, APIFunction, type API } from 'easy-api.ts'
 import { join } from 'path'
 import { inspect } from 'util'
 import { Logger, LogPriority } from './classes/Logger'
-import type { LazyCanvasPlugin } from '@hitomihiumi/lazy-canvas'
+import type { LazyCanvasPlugin, StringCentering, StringFontWeight, StringOutlineType } from '@hitomihiumi/lazy-canvas'
 
 /**
- * Directory where the functions are located.
  * @private
  */
 const FUNCTIONS_DIRECTORY = join(__dirname, 'functions')
 
 /**
- * Directory where the shared functions are located.
  * @private
  */
 export const SHARED_FUNCTIONS_DIRECTORY = join(__dirname, 'shared')
 
 /**
- * Native canvas parent function name.
  * @private
  */
 const NATIVE_CANVAS_PARENT_FUNCTION = '$createCanvas'
 
 /**
- * Package name.
  * @private
  */
-export const packageName = '@eats/lazy-canvas'
+export const PACKAGE_NAME = '@eats/lazy-canvas'
 
 /**
- * Logger instance.
+ * @private
+ */
+export const ALLOWED_CENTERING_VALUES: StringCentering[] = ['legacy', 'new'] as const
+
+/**
+ * @private
+ */
+export const ALLOWED_FONT_WEIGHTS: StringFontWeight[] = [
+    'normal',
+    'bold',
+    'italic',
+    'bold italic',
+    'regular',
+    'semi-bold',
+    'extra-bold',
+    'light',
+    'extra-light'
+] as const
+
+/**
+ * @private
+ */
+export const ALLOWED_OUTLINE_TYPES: StringOutlineType[] = [
+    'center',
+    'inner',
+    'outer'
+] as const
+
+/**
+ * Global logger instance.
  * @private
  */
 export let logger: Logger
@@ -63,7 +88,7 @@ const defaultOptions: Required<EATSLazyCanvasOptions> = {
  * kiss, kiss. <3
  */
 export class EATSLazyCanvas extends Addon {
-    override name = packageName
+    override name = PACKAGE_NAME
     override description = 'lazy-canvas implementation for easy-api.ts.'
     override version = '1.0.0'
     private logger!: Logger
@@ -72,7 +97,7 @@ export class EATSLazyCanvas extends Addon {
 
         this.logger = new Logger({
             level: this.options.debug ? LogPriority.DEBUG : LogPriority.INFO,
-            prefix: packageName
+            prefix: PACKAGE_NAME
         })
         logger = this.logger
     }

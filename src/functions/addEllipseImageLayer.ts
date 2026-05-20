@@ -1,7 +1,7 @@
 import checkLazyCanvas from '../utils/checkLazyCanvas'
 import type { CompiledFunction } from 'easy-api.ts/lib/classes/internal/CompiledFunction'
 import { APIFunction, Data, EATS_Error, ParamType } from 'easy-api.ts'
-import { packageName } from '../index'
+import { PACKAGE_NAME } from '../index'
 import { EllipseImageLayer, type LazyCanvas } from '@hitomihiumi/lazy-canvas'
 
 export default class AddEllipseImageLayer extends APIFunction {
@@ -68,7 +68,7 @@ export default class AddEllipseImageLayer extends APIFunction {
 
         checkLazyCanvas(d)
 
-        const canvas = d.getInternalVar<LazyCanvas>(packageName)
+        const canvas = d.getInternalVar<LazyCanvas>(PACKAGE_NAME)
         const layer = new EllipseImageLayer()
             .setX(x!)
             .setY(y!)

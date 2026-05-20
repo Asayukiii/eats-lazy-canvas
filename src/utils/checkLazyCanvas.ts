@@ -1,5 +1,5 @@
 import { type Data, EATS_Error } from 'easy-api.ts'
-import { packageName } from '..'
+import { PACKAGE_NAME } from '..'
 
 /**
  * Checks if the canvas instance exists.
@@ -8,7 +8,7 @@ import { packageName } from '..'
  * @returns {boolean} True if the canvas instance exists.
  */
 export default function checkLazyCanvas(d: Data): boolean {
-    if (d.internalVarExists(packageName) === false) {
+    if (d.internalVarExists(PACKAGE_NAME) === false) {
         throw new EATS_Error('Canvas instance does not exist. Ensure you have created a canvas instance using $createLazyCanvas.')
     }
     return true

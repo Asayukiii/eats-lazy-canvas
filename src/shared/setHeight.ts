@@ -3,9 +3,9 @@ import { APIFunction, Data, ParamType } from 'easy-api.ts'
 import { PACKAGE_NAME } from '../index'
 import type { CompiledFunction } from 'easy-api.ts/lib/classes/internal/CompiledFunction'
 
-export default class SetShadowOffsetX extends APIFunction {
-    override name = '$setShadowOffsetX'
-    override description = 'Set shadow offset X of the layer.'
+export default class SetHeight extends APIFunction {
+    override name = '$setHeight'
+    override description = 'Set height of the layer.'
     override parameters = [
         {
             name: 'ID',
@@ -16,8 +16,8 @@ export default class SetShadowOffsetX extends APIFunction {
             defaultValue: null
         },
         {
-            name: 'Shadow offset X',
-            description: 'Shadow offset X amount of the layer.',
+            name: 'Height',
+            description: 'Height value of the layer.',
             type: ParamType.Number,
             required: true,
             rest: false,
@@ -27,15 +27,15 @@ export default class SetShadowOffsetX extends APIFunction {
     override returns = ParamType.Unknown
     override compile = true
     override run = async function (this: CompiledFunction, d: Data, values: string[]) {
-        const [id, shadowOffsetX] = values
-        if (isNaN(parseFloat(shadowOffsetX!))) throw new Error('Shadow offset X must be a number')
+        const [id, height] = values
+        if (isNaN(parseFloat(height!))) throw new Error('Height must be a number')
         
         const layer = d.getInternalVar<BaseLayer<Base>>(`${PACKAGE_NAME}_layer_${id}`)
         if (!layer) throw new Error('Layer not found');
-        if (!('setShadowOffsetX' in layer && typeof layer.setShadowOffsetX === 'function')) {
-            throw new Error('Layer does not support setting shadow offset X')
+        if (!('setHeight' in layer && typeof layer.setHeight === 'function')) {
+            throw new Error('Layer does not support setting height')
         }
 
-        layer.setShadowOffsetX(parseFloat(shadowOffsetX!))
+        layer.setHeight(parseFloat(height!))
     }
 }

@@ -3,9 +3,9 @@ import { APIFunction, Data, ParamType } from 'easy-api.ts'
 import { PACKAGE_NAME } from '../index'
 import type { CompiledFunction } from 'easy-api.ts/lib/classes/internal/CompiledFunction'
 
-export default class SetShadowOffsetX extends APIFunction {
-    override name = '$setShadowOffsetX'
-    override description = 'Set shadow offset X of the layer.'
+export default class SetColor extends APIFunction {
+    override name = '$setColor'
+    override description = 'Set color of the layer.'
     override parameters = [
         {
             name: 'ID',
@@ -16,9 +16,9 @@ export default class SetShadowOffsetX extends APIFunction {
             defaultValue: null
         },
         {
-            name: 'Shadow offset X',
-            description: 'Shadow offset X amount of the layer.',
-            type: ParamType.Number,
+            name: 'Color',
+            description: 'Color value of the layer.',
+            type: ParamType.String,
             required: true,
             rest: false,
             defaultValue: null
@@ -27,15 +27,15 @@ export default class SetShadowOffsetX extends APIFunction {
     override returns = ParamType.Unknown
     override compile = true
     override run = async function (this: CompiledFunction, d: Data, values: string[]) {
-        const [id, shadowOffsetX] = values
-        if (isNaN(parseFloat(shadowOffsetX!))) throw new Error('Shadow offset X must be a number')
+        const [id, color] = values
+        if (typeof color !== 'string') throw new Error('Color must be a string')
         
         const layer = d.getInternalVar<BaseLayer<Base>>(`${PACKAGE_NAME}_layer_${id}`)
         if (!layer) throw new Error('Layer not found');
-        if (!('setShadowOffsetX' in layer && typeof layer.setShadowOffsetX === 'function')) {
-            throw new Error('Layer does not support setting shadow offset X')
+        if (!('setColor' in layer && typeof layer.setColor === 'function')) {
+            throw new Error('Layer does not support setting color')
         }
 
-        layer.setShadowOffsetX(parseFloat(shadowOffsetX!))
+        layer.setColor(color)
     }
 }

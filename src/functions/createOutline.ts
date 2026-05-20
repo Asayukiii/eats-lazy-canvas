@@ -51,7 +51,7 @@ export default class CreateOutline extends APIFunction {
         checkLazyCanvas(d)
 
         let max = 3
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < max; i++) {
             switch (i) {
                 case 0:
                     outlineId = await Util.resolveCode(data, outlineId!, 'code')

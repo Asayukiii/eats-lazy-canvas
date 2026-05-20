@@ -11,6 +11,12 @@ import type { LazyCanvasPlugin } from '@hitomihiumi/lazy-canvas'
 const FUNCTIONS_DIRECTORY = join(__dirname, 'functions')
 
 /**
+ * Directory where the shared functions are located.
+ * @private
+ */
+export const SHARED_FUNCTIONS_DIRECTORY = join(__dirname, 'shared')
+
+/**
  * Native canvas parent function name.
  * @private
  */

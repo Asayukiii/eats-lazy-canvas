@@ -14,15 +14,7 @@ const api = new API({
 api.route({
     url: '/hi',
     method: 'get',
-    code: `
-        $send[
-            $setCode[200]
-            $setType[json]
-            $setBody[{
-                message: "Hello world"
-            }]
-        ]
-    `
+    code: '$oldSend[200;json;{ "message":"hello world" }]'
 })
 
 api.connect({

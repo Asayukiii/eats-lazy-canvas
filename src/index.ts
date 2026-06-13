@@ -1,7 +1,7 @@
-import { Addon, APIFunction, type API } from 'easy-api.ts'
+import { Addon, APIFunction, type API, LogPriority } from 'easy-api.ts'
+import { Logger } from 'easy-api.ts/lib/classes/core/Logger'
 import { join } from 'path'
 import { inspect } from 'util'
-import { Logger, LogPriority } from './classes/Logger'
 import type { LazyCanvasPlugin, StringCentering, StringFontWeight, StringOutlineType } from '@hitomihiumi/lazy-canvas'
 
 /**
@@ -91,6 +91,8 @@ export class EATSLazyCanvas extends Addon {
     override name = PACKAGE_NAME
     override description = 'lazy-canvas implementation for easy-api.ts.'
     override version = '1.0.0'
+    override requiredAddons: string[] = []
+    override requiredVersions: string[] = []
     private logger!: Logger
     constructor(private readonly options: EATSLazyCanvasOptions = defaultOptions) {
         super()

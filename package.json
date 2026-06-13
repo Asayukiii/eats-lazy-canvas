@@ -4,12 +4,15 @@
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
-    "easy-api.ts": "^3.8.5"
+    "easy-api.ts": "^3.8.10"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
     "@hitomihiumi/lazy-canvas": "^1.5.1"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json" 
   }
 }

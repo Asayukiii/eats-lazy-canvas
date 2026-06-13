@@ -2,7 +2,7 @@ import { EATSLazyCanvas } from '../src'
 import { API } from 'easy-api.ts'
 
 const api = new API({
-    addons: [new EATSLazyCanvas(true)],
+    addons: [new EATSLazyCanvas()],
     dots: false,
     logger: {
         enabled: true,
